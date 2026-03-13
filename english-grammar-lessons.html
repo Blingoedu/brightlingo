@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Essential English Grammar</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1208;
+    --cream: #faf6ee;
+    --warm: #f0e8d5;
+    --gold: #c9973a;
+    --rust: #b84c2a;
+    --sage: #4a6741;
+    --slate: #3d4f5c;
+    --muted: #8a7d6b;
+    --border: #d9cebc;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 3px solid var(--gold);
+  }
+
+  .header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+  }
+
+  .logo span { color: var(--gold); }
+
+  .progress-bar-outer {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.78rem; color: #aaa;
+  }
+
+  .progress-track {
+    width: 160px; height: 6px;
+    background: #333;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--gold);
+    border-radius: 3px;
+    transition: width 0.5s ease;
+  }
+
+  /* LAYOUT */
+  .app {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 28px;
+    min-height: calc(100vh - 60px);
+  }
+
+  /* SIDEBAR */
+  .sidebar {
+    position: sticky;
+    top: 80px;
+    height: fit-content;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 8px 0;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+
+  .sidebar-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 10px 18px 8px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 4px;
+  }
+
+  .lesson-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 9px 18px;
+    border: none;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--ink);
+    transition: background 0.15s;
+    border-left: 3px solid transparent;
+  }
+
+  .lesson-btn:hover { background: var(--warm); }
+
+  .lesson-btn.active {
+    background: #fff8ec;
+    border-left-color: var(--gold);
+    color: var(--rust);
+    font-weight: 600;
+  }
+
+  .lesson-btn .num {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--warm);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: var(--muted);
+    flex-shrink: 0;
+  }
+
+  .lesson-btn.active .num {
+    background: var(--gold);
+    color: white;
+  }
+
+  .lesson-btn.done .num {
+    background: var(--sage);
+    color: white;
+  }
+
+  /* MAIN CONTENT */
+  .main {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .lesson-card {
+    display: none;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .lesson-card.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .lesson-header {
+    background: var(--ink);
+    color: white;
+    padding: 28px 32px;
+    border-radius: 12px 12px 0 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .lesson-header::after {
+    content: attr(data-symbol);
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    font-weight: 900;
+    color: rgba(255,255,255,0.06);
+    pointer-events: none;
+  }
+
+  .lesson-tag {
+    display: inline-block;
+    background: var(--gold);
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+  }
+
+  .lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+
+  .lesson-subtitle {
+    color: #aaa;
+    font-size: 0.88rem;
+  }
+
+  .lesson-body {
+    background: white;
+    border: 1.5px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    padding: 32px;
+  }
+
+  /* SECTIONS */
+  .section { margin-bottom: 28px; }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--rust);
+    margin-bottom: 12px;
+    padding-bottom: 6px;
+    border-bottom: 2px dashed var(--border);
+  }
+
+  .section p {
+    font-size: 0.9rem;
+    line-height: 1.75;
+    color: #333;
+    margin-bottom: 10px;
+  }
+
+  /* RULES TABLE */
+  .rules-grid {
+    display: grid;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .rule-row {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1.5fr;
+    gap: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    font-size: 0.82rem;
+  }
+
+  .rule-row.header {
+    background: var(--ink);
+    color: white;
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .rule-cell {
+    padding: 9px 12px;
+    border-right: 1px solid var(--border);
+  }
+
+  .rule-cell:last-child { border-right: none; }
+  .rule-row.header .rule-cell { border-color: #333; }
+  .rule-row:not(.header):nth-child(even) { background: var(--warm); }
+
+  /* EXAMPLES */
+  .examples {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  .example {
+    background: #f8f4ea;
+    border-left: 4px solid var(--gold);
+    padding: 10px 14px;
+    border-radius: 0 6px 6px 0;
+    font-size: 0.85rem;
+  }
+
+  .example .correct {
+    color: var(--sage);
+    font-weight: 600;
+  }
+
+  .example .wrong {
+    color: var(--rust);
+    text-decoration: line-through;
+    opacity: 0.7;
+  }
+
+  .example .note {
+    color: var(--muted);
+    font-size: 0.78rem;
+    margin-top: 3px;
+  }
+
+  /* FORMULA BOX */
+  .formula {
+    background: var(--ink);
+    color: var(--gold);
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin: 10px 0;
+    letter-spacing: 0.3px;
+  }
+
+  /* CHIPS */
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+  }
+
+  .chip {
+    background: var(--warm);
+    border: 1px solid var(--border);
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .chip.accent { background: #fff8ec; border-color: var(--gold); color: var(--rust); }
+  .chip.green { background: #edf4eb; border-color: #a0c49a; color: var(--sage); }
+
+  /* QUIZ */
+  .quiz-section {
+    background: #f0f8ff;
+    border: 1.5px solid #b8d4e8;
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-top: 24px;
+  }
+
+  .quiz-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--slate);
+    margin-bottom: 14px;
+  }
+
+  .quiz-q {
+    margin-bottom: 14px;
+  }
+
+  .quiz-q p {
+    font-size: 0.88rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--ink);
+  }
+
+  .quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .quiz-opt {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border: 1.5px solid #c8dce8;
+    border-radius: 6px;
+    background: white;
+    cursor: pointer;
+    font-size: 0.82rem;
+    transition: all 0.15s;
+    user-select: none;
+  }
+
+  .quiz-opt:hover { background: #e8f4fc; border-color: #7ab0d0; }
+  .quiz-opt.correct { background: #edf7ed; border-color: var(--sage); color: var(--sage); font-weight: 600; }
+  .quiz-opt.wrong { background: #fceeed; border-color: var(--rust); color: var(--rust); }
+
+  .quiz-opt .dot {
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    border: 2px solid #aac8dc;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.65rem;
+  }
+
+  .quiz-feedback {
+    font-size: 0.8rem;
+    margin-top: 6px;
+    padding: 6px 10px;
+    border-radius: 5px;
+    display: none;
+  }
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.ok { background: #edf7ed; color: var(--sage); }
+  .quiz-feedback.no { background: #fceeed; color: var(--rust); }
+
+  /* NAV BUTTONS */
+  .nav-btns {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1.5px dashed var(--border);
+  }
+
+  .btn {
+    padding: 10px 22px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.15s;
+  }
+
+  .btn-ghost {
+    background: none;
+    border: 1.5px solid var(--border);
+    color: var(--muted);
+  }
+  .btn-ghost:hover { border-color: var(--ink); color: var(--ink); }
+
+  .btn-primary {
+    background: var(--ink);
+    color: white;
+  }
+  .btn-primary:hover { background: var(--rust); }
+
+  .lesson-count {
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  /* TWO COL */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 8px;
+  }
+
+  .col-box {
+    background: var(--warm);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+  }
+
+  .col-box h4 {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .col-box ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .col-box li {
+    font-size: 0.82rem;
+    color: var(--ink);
+    padding-left: 12px;
+    position: relative;
+  }
+
+  .col-box li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 0.7rem;
+  }
+
+  @media (max-width: 768px) {
+    .app { grid-template-columns: 1fr; }
+    .sidebar { position: static; max-height: 240px; }
+    .two-col { grid-template-columns: 1fr; }
+    .rule-row { grid-template-columns: 1fr; }
+    .rule-cell { border-right: none; border-bottom: 1px solid var(--border); }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">Essential <span>Grammar</span></div>
+    <div class="progress-bar-outer">
+      <span id="prog-label">0 / 18 done</span>
+      <div class="progress-track">
+        <div class="progress-fill" id="prog-fill" style="width:0%"></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="app">
+  <nav class="sidebar">
+    <div class="sidebar-title">All Lessons</div>
+    <div id="lesson-nav"></div>
+  </nav>
+
+  <main class="main" id="lesson-area"></main>
+</div>
+
+<script>
+const lessons = [
+  {
+    id: 1,
+    tag: "Foundation",
+    title: "Parts of Speech",
+    subtitle: "The 8 building blocks of every English sentence",
+    symbol: "Aa",
+    color: "#1a1208",
+    sections: [
+      {
+        title: "What Are Parts of Speech?",
+        content: `Every word in English belongs to a category called a <strong>part of speech</strong>. Understanding these 8 categories is the foundation of all grammar.`
+      },
+      {
+        title: "The 8 Parts of Speech",
+        table: {
+          cols: ["Part of Speech", "Function", "Examples"],
+          rows: [
+            ["Noun", "Names a person, place, thing, or idea", "dog, London, happiness"],
+            ["Pronoun", "Replaces a noun", "he, she, it, they, we"],
+            ["Verb", "Shows action or state of being", "run, is, think, become"],
+            ["Adjective", "Describes a noun or pronoun", "tall, happy, blue, three"],
+            ["Adverb", "Describes a verb, adjective, or adverb", "quickly, very, well, often"],
+            ["Preposition", "Shows relationship between words", "in, on, at, under, beside"],
+            ["Conjunction", "Connects words or clauses", "and, but, or, although, because"],
+            ["Interjection", "Expresses strong emotion", "Oh! Wow! Ouch! Hey!"],
+          ]
+        }
+      },
+      {
+        title: "Examples in Sentences",
+        examples: [
+          { correct: "The happy dog runs quickly in the park.", note: "the=article/adj · happy=adj · dog=noun · runs=verb · quickly=adv · in=prep · park=noun" },
+          { correct: "Wow! She and I both love music deeply.", note: "Wow=interj · She/I=pronouns · and=conj · love=verb · deeply=adv" }
+        ]
+      }
+    ],
+    quiz: [
+      { q: "What part of speech is the word 'beautiful'?", opts: ["Noun","Verb","Adjective","Adverb"], ans: 2, explain: "'Beautiful' describes a noun, so it is an adjective." },
+      { q: "Identify the conjunction: 'She was tired, but she kept going.'", opts: ["tired","but","kept","going"], ans: 1, explain: "'But' connects two independent clauses, making it a conjunction." }
+    ]
+  },
+  {
+    id: 2,
+    tag: "Nouns",
+    title: "Nouns & Articles",
+    subtitle: "Types of nouns, plurals, and using a / an / the",
+    symbol: "N",
+    sections: [
+      {
+        title: "Types of Nouns",
+        chips: [
+          {label:"Common: dog, city, idea", type:""},
+          {label:"Proper: London, Maria, Monday", type:"accent"},
+          {label:"Countable: apple, book, car", type:""},
+          {label:"Uncountable: water, music, advice", type:"accent"},
+          {label:"Concrete: table, rain", type:"green"},
+          {label:"Abstract: love, freedom", type:"green"},
+          {label:"Collective: team, flock, jury", type:""}
+        ]
+      },
+      {
+        title: "Forming Plurals",
+        table: {
+          cols: ["Rule", "Singular", "Plural"],
+          rows: [
+            ["Add -s", "cat / book", "cats / books"],
+            ["Add -es (s,x,z,ch,sh)", "box / church", "boxes / churches"],
+            ["-y → -ies (consonant+y)", "city / baby", "cities / babies"],
+            ["-f/-fe → -ves", "leaf / wife", "leaves / wives"],
+            ["Irregular", "man / child / tooth", "men / children / teeth"],
+            ["Same form", "sheep / fish / deer", "sheep / fish / deer"],
+          ]
+        }
+      },
+      {
+        title: "Articles: a, an, the",
+        formula: "a + consonant sound  |  an + vowel sound  |  the + specific noun",
+        examples: [
+          { correct: "I saw a cat. The cat was black.", note: "First mention → 'a', second mention → 'the'" },
+          { correct: "She is an engineer. An honest man.", note: "'an' before vowel sounds — 'honest' starts with silent H" },
+          { correct: "The sun rises in the east.", note: "Unique nouns (sun, moon, sky) always use 'the'" },
+          { wrong: "She gave me an advice.", correct: "She gave me advice.", note: "Uncountable nouns: no article needed" }
+        ]
+      }
+    ],
+    quiz: [
+      { q: "Choose the correct article: '___ umbrella was left on the bus.'", opts: ["A","An","The","No article"], ans: 1, explain: "'umbrella' starts with a vowel sound, so use 'an'." },
+      { q: "Which noun is uncountable?", opts: ["book","chair","furniture","idea"], ans: 2, explain: "'Furniture' is uncountable — you can't say 'two furnitures'." }
+    ]
+  },
+  {
+    id: 3,
+    tag: "Pronouns",
+    title: "Pronouns",
+    subtitle: "Subject, object, possessive, reflexive & relative pronouns",
+    symbol: "P",
+    sections: [
+      {
+        title: "Pronoun Chart",
+        table: {
+          cols: ["Subject", "Object", "Possessive Adj.", "Possessive Pro.", "Reflexive"],
+          rows: [
+            ["I","me","my","mine","myself"],
+            ["you","you","your","yours","yourself"],
+            ["he","him","his","his","himself"],
+            ["she","her","her","hers","herself"],
+            ["it","it","its","—","itself"],
+            ["we","us","our","ours","ourselves"],
+            ["they","them","their","theirs","themselves"],
+          ]
+        }
+      },
+      {
+        title: "Usage Examples",
+        examples: [
+          { correct: "She gave him her book. It is hers.", note: "subject / object / possessive adj / possessive pronoun" },
+          { correct: "He hurt himself playing football.", note: "reflexive pronoun — subject and object are the same" },
+          { wrong: "Between you and I…", correct: "Between you and me…", note: "After prepositions, use object pronouns" }
+        ]
+      },
+      {
+        title: "Relative Pronouns: who, which, that, whose, whom",
+        examples: [
+          { correct: "The man who called is my uncle.", note: "'who' for people" },
+          { correct: "The book that/which I read was great.", note: "'that' or 'which' for things" },
+          { correct: "The student whose essay won got a prize.", note: "'whose' shows possession" }
+        ]
+      }
+    ],
+    quiz: [
+      { q: "Fill in: 'The trophy is ___.' (possession)", opts: ["them","theirs","their","they"], ans: 1, explain: "'Theirs' is the possessive pronoun used after a verb." },
+      { q: "Choose: 'The woman ___ I met was kind.'", opts: ["who","whom","which","whose"], ans: 1, explain: "'Whom' is the object form — used when the pronoun is the object of the verb." }
+    ]
+  },
+  {
+    id: 4,
+    tag: "Tenses",
+    title: "Present Tenses",
+    subtitle: "Simple, continuous, perfect, and perfect continuous",
+    symbol: "→",
+    sections: [
+      {
+        title: "Four Present Tenses",
+        table: {
+          cols: ["Tense", "Formula", "Use"],
+          rows: [
+            ["Simple Present", "V / V+s", "habits, facts, schedules"],
+            ["Present Continuous", "am/is/are + V-ing", "actions happening now or temporarily"],
+            ["Present Perfect", "have/has + V3", "past actions with present relevance"],
+            ["Pres. Perfect Cont.", "have/has + been + V-ing", "ongoing action from past to now"],
+          ]
+        }
+      },
+      {
+        title: "Examples",
+        examples: [
+          { correct: "She works at a hospital. (habit)", note: "Simple Present" },
+          { correct: "She is working right now. (now)", note: "Present Continuous" },
+          { correct: "She has worked there for 5 years. (up to now)", note: "Present Perfect" },
+          { correct: "She has been working since morning. (ongoing)", note: "Present Perfect Continuous" }
+        ]
+      },
+      {
+        title: "Key Signal Words",
+        two_col: [
+          { title: "Simple Present", items: ["always, usually, often","every day / week","never, rarely, sometimes"] },
+          { title: "Present Perfect", items: ["just, already, yet","ever, never","for, since, recently"] }
+        ]
+      }
+    ],
+    quiz: [
+      { q: "Which tense? 'I ___ here since 2019.'", opts: ["live","am living","have lived","have been living"], ans: 2, explain: "'Have lived' = present perfect, for a state continuing from a past point until now." },
+      { q: "She ___ dinner right now. Don't disturb her.", opts: ["cooks","cooked","is cooking","has cooked"], ans: 2, explain: "An action in progress at this moment uses Present Continuous." }
+    ]
+  },
+  {
+    id: 5,
+    tag: "Tenses",
+    title: "Past Tenses",
+    subtitle: "Simple, continuous, perfect, and perfect continuous",
+    symbol: "←",
+    sections: [
+      {
+        title: "Four Past Tenses",
+        table: {
+          cols: ["Tense", "Formula", "Use"],
+          rows: [
+            ["Simple Past", "V2 (regular: +ed)", "completed action at a specific past time"],
+            ["Past Continuous", "was/were + V-ing", "ongoing action at a past moment"],
+            ["Past Perfect", "had + V3", "action before another past action"],
+            ["Past Perfect Cont.", "had been + V-ing", "ongoing action before a past point"],
+          ]
+        }
+      },
+      {
+        title: "Examples",
+        examples: [
+          { correct: "I ate breakfast at 8 am.", note: "Simple Past — completed action" },
+          { correct: "I was eating when she called.", note: "Past Continuous — interrupted by another action" },
+          { correct: "She had left before I arrived.", note: "Past Perfect — earlier of two past actions" },
+          { correct: "He had been running for an hour when it rained.", note: "Past Perfect Continuous" }
+        ]
+      }
+    ],
+    quiz: [
+      { q: "When I arrived, they ___ (already/eat).", opts: ["already ate","had already eaten","were already eating","already had eaten"], ans: 1, explain: "Past Perfect is used for an action completed before another past action." },
+      { q: "She ___ TV when the lights went out.", opts: ["watched","had watched","was watching","is watching"], ans: 2, explain: "Past Continuous describes an ongoing past action interrupted by another event." }
+    ]
+  },
+  {
+    id: 6,
+    tag: "Tenses",
+    title: "Future Tenses",
+    subtitle: "will, going to, future continuous, future perfect",
+    symbol: "⟶",
+    sections: [
+      {
+        title: "Future Forms",
+        table: {
+          cols: ["Form", "Use", "Example"],
+          rows: [
+            ["will + V", "spontaneous decisions, predictions", "I'll help you. It will rain."],
+            ["going to + V", "plans, evidence-based predictions", "I'm going to study law. Look — it's going to rain!"],
+            ["Present Continuous", "fixed future arrangements", "I'm meeting her tomorrow at 3."],
+            ["Simple Present", "schedules/timetables", "The train leaves at 6 pm."],
+            ["will be + V-ing", "ongoing future action", "This time next week, I'll be flying."],
+            ["will have + V3", "action complete before future point", "By June, I'll have finished the course."],
+          ]
+        }
+      },
+      {
+        title: "Will vs Going To",
+        examples: [
+          { correct: "A: The phone is ringing. B: I'll get it!", note: "will = spontaneous decision (right now)" },
+          { correct: "I'm going to visit Japan next year.", note: "going to = planned decision made earlier" },
+          { wrong: "Look at those clouds. It will rain.", correct: "Look at those clouds. It's going to rain.", note: "Evidence-based near future = going to" }
+        ]
+      }
+    ],
+    quiz: [
+      { q: "I feel sick. I think I ___ be sick.", opts: ["will","am going to","am","shall"], ans: 1, explain: "Evidence (feeling sick now) → 'going to' for a near-certain prediction." },
+      { q: "By 10 pm, I ___ my homework.", opts: ["finish","will finish","will be finishing","will have finished"], ans: 3, explain: "Future Perfect = action completed before a specific future time." }
+    ]
+  },
+  {
+    id: 7,
+    tag: "Verbs",
+    title: "Modal Verbs",
+    subtitle: "can, could, may, might, must, should, would, shall, ought to",
+    symbol: "M",
+    sections: [
+      {
+        title: "Modal Verbs at a Glance",
+        table: {
+          cols: ["Modal", "Uses", "Example"],
+          rows: [
+            ["can / could", "ability, permission, possibility", "She can swim. Could I leave early?"],
+            ["may / might", "permission, possibility (formal)", "You may go. It might rain."],
+            ["must", "strong obligation, certainty", "You must wear a seatbelt. He must be tired."],
+            ["have to", "external obligation", "I have to work on Saturdays."],
+            ["should / ought to", "advice, recommendation", "You should see a doctor."],
+            ["would", "conditional, polite request", "I would help if I could. Would you like tea?"],
+            ["shall", "suggestions, formal offers (BrE)", "Shall we dance?"],
+            ["need not", "no necessity", "You needn't come if you're busy."],
+          ]
+        }
+      },
+      {
+        title: "Perfect Modals (Past)",
+        examples: [
+          { correct: "She should have called. (but didn't)", note: "should have + V3 = past advice / criticism" },
+          { correct: "He must have forgotten. (almost certain)", note: "must have + V3 = past deduction" },
+          { correct: "They could have won. (but didn't)", note: "could have + V3 = past possibility unrealized" }
+        ]
+      }
+    ],
+    quiz: [
+      { q: "You look pale. You ___ see a doctor.", opts: ["must","can","should","would"], ans: 2, explain: "'Should' is used for advice and recommendations." },
+      { q: "'She ___ have taken my keys — she was the only one here.'", opts: ["should","must","would","might"], ans: 1, explain: "'Must have' expresses strong logical deduction about the past." }
+    ]
+  },
+  {
+    id: 8,
+    tag: "Voice",
+    title: "Active & Passive Voice",
+    subtitle: "Transforming sentences and knowing when to use each",
+    symbol: "⇄",
+    sections: [
+      {
+        title: "Active vs Passive",
+        content: `In <strong>active voice</strong>, the subject performs the action. In <strong>passive voice</strong>, the subject receives the action. Use passive when the doer is unknown, unimportant, or obvious.`
+      },
+      {
+        title: "Passive Formation",
+        formula: "Subject + be (conjugated) + past participle (+ by + agent)",
+        table: {
+          cols: ["Tense", "Active", "Passive"],
+          rows: [
+            ["Simple Present", "They make cars here.", "Cars are made here."],
+            ["Simple Past", "She wrote the letter.", "The letter was written by her."],
+            ["Present Perfect", "He has done it.", "It has been done by him."],
+            ["Future (will)", "They will announce results.", "Results will be announced."],
+            ["Modal", "You must sign this.", "This must be signed."],
+          ]
+        }
+      },
+      {
+        title: "Examples",
+        examples: [
+          { correct: "The window was broken. (doer unknown)", note: "Passive — we don't know or care who broke it" },
+          { correct: "The Mona Lisa was painted by Leonardo da Vinci.", note: "Agent ('by...') added when it's important" },
+          { wrong: "The book was being written by him for two years.", correct: "He had been writing the book for two years.", note: "Avoid awkward passives — use active when clearer" }
+        ]
+      }
+    ],
+    quiz: [
+      { q: "Change to passive: 'Someone stole my wallet.'", opts: ["My wallet was stolen.","My wallet has been stolen.","My wallet is stolen.","My wallet stole."], ans: 0, explain: "Simple past passive: was/were + past participle." },
+      { q: "Which sentence is in passive voice?", opts: ["She reads every night.","The cake was eaten by the children.","He will travel tomorrow.","They have arrived."], ans: 1, explain: "'was eaten' = past passive (was + eaten/V3)." }
+    ]
+  },
+  {
+    id: 9,
+    tag: "Conditionals",
+    title: "Conditionals",
+    subtitle: "Zero, First, Second, Third, and Mixed conditionals",
+    symbol: "If",
+    sections: [
+      {
+        title: "The Five Conditionals",
+        table: {
+          cols: ["Type", "Formula", "Use"],
+          rows: [
+            ["Zero", "If + present, present", "general truths, scientific facts"],
+            ["First", "If + present, will + V", "real/likely future conditions"],
+            ["Second", "If + past simple, would + V", "unreal/hypothetical present/future"],
+            ["Third", "If + past perfect, would have + V3", "unreal past — imagining different outcome"],
+            ["Mixed", "If + past perfect, would + V", "past condition → present result"],
+          ]
+        }
+      },
+      {
+        title: "Examples",
+        examples: [
+          { correct: "If you heat water to 100°C, it boils. (Zero)", note: "Always true fact" },
+          { correct: "If it rains tomorrow, I will stay home. (First)", note: "Realistic future possibility" },
+          { correct: "If I were rich, I would travel the world. (Second)", note: "Use 'were' for all persons in hypothetical" },
+          { correct: "If she had studied, she would have passed. (Third)", note: "Imagining a different past" },
+          { correct: "If I had slept early, I wouldn't be tired now. (Mixed)", note: "Past condition → present consequence" }
+        ]
+      }
+    ],
+    quiz: [
+      { q: "Which conditional? 'If I were you, I'd apologize.'", opts: ["Zero","First","Second","Third"], ans: 2, explain: "Hypothetical present/advice = Second Conditional (past simple + would)." },
+      { q: "Complete: 'If she ___ harder, she would have passed.'", opts: ["studies","studied","had studied","would study"], ans: 2, explain: "Third conditional: If + past perfect, would have + V3." }
+    ]
+  },
+  {
+    id: 10,
+    tag: "Reported Speech",
+    title: "Reported Speech",
+    subtitle: "Direct to indirect speech — tense shifts, pronouns, time words",
+    symbol: '❝',
+    sections: [
+      {
+        title: "Tense Backshift Rules",
+        table: {
+          cols: ["Direct Speech", "→ Reported Speech"],
+          rows: [
+            ["present simple", "→ past simple"],
+            ["present continuous", "→ past continuous"],
+            ["present perfect", "→ past perfect"],
+            ["past simple", "→ past perfect"],
+            ["will", "→ would"],
+            ["can", "→ could"],
+            ["may", "→ might"],
+            ["must", "→ had to"],
+          ]
+        }
+      },
+      {
+        title: "Time & Place Changes",
+        two_col: [
+          { title: "Direct → Reported", items: ["now → then","today → that day","yesterday → the day before","tomorrow → the next day","here → there","this → that","ago → before"] },
+          { title: "Reporting Verbs", items: ["said, told, asked","explained, mentioned","promised, warned","denied, admitted","suggested, insisted","refused, agreed"] }
+        ]
+      },
+      {
+        title: "Examples",
+        examples: [
+          { correct: 'He said, "I am tired." → He said (that) he was tired.', note: "present simple → past simple" },
+          { correct: 'She said, "I will call you." → She said she would call me.', note: "will → would; you → me" },
+          { correct: 'He asked, "Are you ready?" → He asked if I was ready.', note: "yes/no questions use 'if/whether'" },
+          { correct: 'She asked, "Where do you live?" → She asked where I lived.', note: "wh-questions: no auxiliary, normal word order" }
+        ]
+      }
+    ],
+    quiz: [
+      { q: "'I have finished the report.' He said he ___ the report.", opts: ["has finished","had finished","finished","would finish"], ans: 1, explain: "Present perfect → past perfect in reported speech." },
+      { q: "She asked: 'Can you help me?' → She asked if I ___ her.", opts: ["can help","could help","will help","helped"], ans: 1, explain: "'can' → 'could' in reported speech." }
+    ]
+  },
+  {
+    id: 11,
+    tag: "Questions",
+    title: "Questions & Negatives",
+    subtitle: "Yes/no, wh- questions, tag questions, and negation",
+    symbol: "?",
+    sections: [
+      {
+        title: "Forming Questions",
+        formula: "Auxiliary + Subject + Main Verb ...?  (or)  Wh-word + Auxiliary + Subject + V?",
+        examples: [
+          { correct: "Do you like coffee? / Does she play tennis?", note: "Yes/No — Simple Present" },
+          { correct: "Are they coming? / Was he there?", note: "Yes/No — Continuous / Past" },
+          { correct: "What do you want? / Where did she go?", note: "Wh-questions — normal auxiliary structure" },
+          { correct: "Who called you? (subject question — no auxiliary)", note: "'Who' is the subject, so no 'do/did'" }
+        ]
+      },
+      {
+        title: "Tag Questions",
+        formula: "Positive statement, negative tag? / Negative statement, positive tag?",
+        examples: [
+          { correct: "She is smart, isn't she?", note: "Positive → negative tag" },
+          { correct: "He didn't call, did he?", note: "Negative → positive tag" },
+          { correct: "Let's go, shall we?", note: "Imperative / Let's → shall we?" }
+        ]
+      },
+      {
+        title: "Negatives",
+        examples: [
+          { correct: "I do not (don't) know. / She doesn't work here.", note: "do/does + not + base verb" },
+          { correct: "I am not ready. / They weren't there.", note: "be + not" },
+          { wrong: "I don't know nothing.", correct: "I don't know anything. / I know nothing.", note: "Avoid double negatives in standard English" }
+        ]
+      }
+    ],
+    quiz: [
+      { q: "Form the tag: 'You've met her, ___ you?'", opts: ["haven't","have","didn't","don't"], ans: 0, explain: "Positive 'have' → negative tag 'haven't'." },
+      { q: "Subject question: '___ broke the vase?'", opts: ["Who did","Who","Did who","Whom"], ans: 1, explain: "When 'who' is the subject, no auxiliary is needed." }
+    ]
+  },
+  {
+    id: 12,
+    tag: "Sentence Structure",
+    title: "Sentence Types & Clauses",
+    subtitle: "Simple, compound, complex — main & subordinate clauses",
+    symbol: "S",
+    sections: [
+      {
+        title: "Sentence Types",
+        table: {
+          cols: ["Type", "Structure", "Example"],
+          rows: [
+            ["Simple", "One independent clause", "She sings beautifully."],
+            ["Compound", "Two independent clauses + conjunction", "She sings, and he dances."],
+            ["Complex", "Independent + dependent clause", "Although it rained, we went out."],
+            ["Compound-Complex", "2 independent + 1 dependent", "She sang while he danced, and everyone applauded."],
+          ]
+        }
+      },
+      {
+        title: "Clause Types",
+        two_col: [
+          { title: "Subordinate Clauses", items: ["Noun clause: I know that she won.","Adjective/Relative: The man who came left.","Adverb: She left because she was tired.","Time: When he arrived, we started.","Condition: If you try, you'll succeed."] },
+          { title: "Subordinating Conjunctions", items: ["Time: when, after, before, while","Cause: because, since, as","Contrast: although, even though, while","Condition: if, unless, provided that","Result: so that, in order that"] }
+        ]
+      }
+    ],
+    quiz: [
+      { q: "What type of sentence is: 'He works hard but never complains.'", opts: ["Simple","Compound","Complex","Compound-complex"], ans: 1, explain: "Two independent clauses joined by 'but' = compound sentence." },
+      { q: "Identify the subordinate clause: 'I will help you if you ask me.'", opts: ["I will help you","if you ask me","help you","will help"], ans: 1, explain: "'if you ask me' is a conditional/subordinate clause — it depends on the main clause." }
+    ]
+  },
+  {
+    id: 13,
+    tag: "Adjectives",
+    title: "Adjectives & Comparisons",
+    subtitle: "Order of adjectives, comparatives, superlatives",
+    symbol: "±",
+    sections: [
+      {
+        title: "Order of Adjectives",
+        formula: "Opinion → Size → Age → Shape → Color → Origin → Material → Purpose + Noun",
+        examples: [
+          { correct: "A lovely little old rectangular green French silver whittling knife.", note: "All 8 types in order (rare in practice — 2-3 is normal)" },
+          { correct: "A big old brown leather bag.", note: "Size → Age → Color → Material → Noun" },
+          { wrong: "A leather brown old big bag.", correct: "A big old brown leather bag.", note: "Incorrect adjective order sounds unnatural" }
+        ]
+      },
+      {
+        title: "Comparatives & Superlatives",
+        table: {
+          cols: ["Type", "Short adj", "Long adj", "Irregular"],
+          rows: [
+            ["Comparative", "-er (bigger)", "more + adj (more beautiful)", "better / worse / further"],
+            ["Superlative", "-est (biggest)", "most + adj (most beautiful)", "best / worst / furthest"],
+          ]
+        }
+      },
+      {
+        title: "Special Comparative Structures",
+        examples: [
+          { correct: "She is as tall as her brother. (equality)", note: "as + adj + as" },
+          { correct: "The more you practice, the better you get.", note: "the + comparative, the + comparative" },
+          { correct: "He is twice as fast as me.", note: "twice / three times + as + adj + as" }
+        ]
+      }
+    ],
+    quiz: [
+      { q: "Correct order: 'a ___ Italian leather bag'", opts: ["nice small","small nice","small nice old","nice small old"], ans: 3, explain: "Opinion (nice) → Size (small) → Age (old) → Origin (Italian) → Material (leather)" },
+      { q: "Superlative of 'far':", opts: ["farest","most far","furthest/farthest","farther"], ans: 2, explain: "'far' has an irregular superlative: furthest/farthest." }
+    ]
+  },
+  {
+    id: 14,
+    tag: "Prepositions",
+    title: "Prepositions",
+    subtitle: "Time, place, movement — and tricky prepositional phrases",
+    symbol: "∈",
+    sections: [
+      {
+        title: "Prepositions of Time",
+        table: {
+          cols: ["Preposition", "Use", "Examples"],
+          rows: [
+            ["at", "specific times, night, holidays", "at 3 pm, at night, at Christmas"],
+            ["on", "days, dates", "on Monday, on July 4th, on my birthday"],
+            ["in", "months, years, seasons, longer periods", "in July, in 2010, in winter, in the morning"],
+            ["for", "duration", "for two hours, for years"],
+            ["since", "start point to now", "since Monday, since 2015"],
+            ["by", "deadline", "finish by Friday"],
+            ["until", "up to a point", "wait until 5 pm"],
+          ]
+        }
+      },
+      {
+        title: "Prepositions of Place & Movement",
+        two_col: [
+          { title: "Place (static)", items: ["at: at the door, at school","in: in a box, in the city","on: on the table, on the wall","under/above: under the bridge","between / among: between trees"] },
+          { title: "Movement", items: ["to: go to school","into: walk into the room","onto: jump onto the stage","from: come from London","through: drive through the tunnel","across: swim across the river"] }
+        ]
+      }
+    ],
+    quiz: [
+      { q: "I'll see you ___ Monday ___ 3 pm.", opts: ["on / at","at / on","in / at","on / in"], ans: 0, explain: "'on' for days, 'at' for specific times." },
+      { q: "She has worked here ___ 2018.", opts: ["for","since","from","during"], ans: 1, explain: "'since' is used with a start point (a specific year)." }
+    ]
+  },
+  {
+    id: 15,
+    tag: "Conjunctions",
+    title: "Conjunctions & Linking Words",
+    subtitle: "Coordinating, subordinating, correlative, and discourse markers",
+    symbol: "+",
+    sections: [
+      {
+        title: "Coordinating Conjunctions (FANBOYS)",
+        chips: [
+          {label:"F — for (reason)", type:"accent"},
+          {label:"A — and (addition)", type:""},
+          {label:"N — nor (negative addition)", type:"accent"},
+          {label:"B — but (contrast)", type:""},
+          {label:"O — or (alternative)", type:"accent"},
+          {label:"Y — yet (contrast)", type:""},
+          {label:"S — so (result)", type:"accent"},
+        ]
+      },
+      {
+        title: "Subordinating Conjunctions",
+        table: {
+          cols: ["Category", "Conjunctions"],
+          rows: [
+            ["Time", "when, while, after, before, since, until, as soon as"],
+            ["Reason", "because, since, as, now that"],
+            ["Contrast", "although, though, even though, whereas, while"],
+            ["Condition", "if, unless, provided (that), as long as"],
+            ["Purpose", "so that, in order that"],
+            ["Result", "so…that, such…that"],
+          ]
+        }
+      },
+      {
+        title: "Correlative Conjunctions",
+        examples: [
+          { correct: "Both she and he are teachers.", note: "both … and" },
+          { correct: "Either you leave or I call security.", note: "either … or" },
+          { correct: "Not only did she win, but she also broke the record.", note: "not only … but also" },
+          { correct: "Neither the food nor the service was good.", note: "neither … nor (singular verb)" }
+        ]
+      }
+    ],
+    quiz: [
+      { q: "Choose the correct conjunction: 'She studied hard, ___ she failed.'", opts: ["so","but","because","and"], ans: 1, explain: "'but' expresses contrast between working hard and failing." },
+      { q: "'Neither the manager ___ the staff were informed.'", opts: ["or","and","nor","but"], ans: 2, explain: "'neither … nor' is the correct correlative pair." }
+    ]
+  },
+  {
+    id: 16,
+    tag: "Gerunds & Infinitives",
+    title: "Gerunds & Infinitives",
+    subtitle: "When to use -ing vs. to + verb — and why it matters",
+    symbol: "Vn",
+    sections: [
+      {
+        title: "Key Verbs Followed by Gerund (V-ing)",
+        chips: [
+          {label:"enjoy", type:""},
+          {label:"avoid", type:"accent"},
+          {label:"finish", type:""},
+          {label:"mind", type:"accent"},
+          {label:"suggest", type:""},
+          {label:"admit", type:"accent"},
+          {label:"deny", type:""},
+          {label:"keep", type:"accent"},
+          {label:"practice", type:""},
+          {label:"consider", type:"green"},
+          {label:"stop (permanently)", type:"green"},
+          {label:"regret (past)", type:"green"},
+        ]
+      },
+      {
+        title: "Key Verbs Followed by Infinitive (to + V)",
+        chips: [
+          {label:"want / need", type:""},
+          {label:"decide / choose", type:"accent"},
+          {label:"plan / intend", type:""},
+          {label:"hope / expect", type:"accent"},
+          {label:"agree / refuse", type:""},
+          {label:"promise", type:"accent"},
+          {label:"seem / appear", type:""},
+          {label:"manage / fail", type:"green"},
+          {label:"stop (purpose)", type:"green"},
+          {label:"try (attempt)", type:"green"},
+        ]
+      },
+      {
+        title: "Meaning Differences",
+        examples: [
+          { correct: "I stopped smoking. (gave up)", note: "stop + gerund = end the activity" },
+          { correct: "I stopped to smoke. (paused in order to)", note: "stop + infinitive = purpose" },
+          { correct: "I remember locking the door. (memory of past)", note: "remember + gerund = past action" },
+          { correct: "Remember to lock the door. (future reminder)", note: "remember + infinitive = future task" }
+        ]
+      }
+    ],
+    quiz: [
+      { q: "She decided ___ a new job.", opts: ["finding","to find","find","found"], ans: 1, explain: "'decide' is followed by the infinitive: decided to find." },
+      { q: "I regret ___ you that the class is cancelled.", opts: ["telling","to tell","told","tell"], ans: 1, explain: "'regret + infinitive' = sorry to inform (present/future). 'regret + -ing' = sorry about past action." }
+    ]
+  },
+  {
+    id: 17,
+    tag: "Punctuation",
+    title: "Punctuation",
+    subtitle: "Commas, apostrophes, colons, semicolons, and more",
+    symbol: ". ,",
+    sections: [
+      {
+        title: "Key Punctuation Rules",
+        table: {
+          cols: ["Mark", "Main Uses", "Example"],
+          rows: [
+            ["Comma ,", "Lists, clauses, after intro phrase", "I like tea, coffee, and juice."],
+            ["Apostrophe '", "Contractions; possession", "It's / she's; dog's bowl; dogs' bowls"],
+            ["Colon :", "Introduce list/explanation", "I need three things: bread, milk, eggs."],
+            ["Semicolon ;", "Join related independent clauses", "She studied hard; she passed."],
+            ["Hyphen -", "Compound adjectives, word division", "well-known author; twenty-one"],
+            ["Dash —", "Emphasis, interruption, aside", "She finally said it — she was leaving."],
+            ["Quotation marks \" \"", "Direct speech, titles, quotes", "He said, \"Hello.\""],
+            ["Ellipsis …", "Omission, trailing off", "I'm not sure… maybe later."],
+          ]
+        }
+      },
+      {
+        title: "Common Mistakes",
+        examples: [
+          { wrong: "Its a nice day.", correct: "It's a nice day.", note: "'It's' = it is (contraction); 'its' = possessive" },
+          { wrong: "The dog wagged it's tail.", correct: "The dog wagged its tail.", note: "Possessive 'its' has NO apostrophe" },
+          { wrong: "She likes: reading, music and art.", correct: "She likes reading, music, and art.", note: "No colon after a verb that naturally flows into the list" }
+        ]
+      }
+    ],
+    quiz: [
+      { q: "Which is correct?", opts: ["The cat licked it's paw.","The cat licked its paw.","The cat licked its' paw.","The cat licked its' paw."], ans: 1, explain: "Possessive 'its' has no apostrophe." },
+      { q: "When should you use a semicolon?", opts: ["Before a list after a colon","To join two related independent clauses","After every long sentence","Before conjunctions like 'and'"], ans: 1, explain: "Semicolons connect closely related independent clauses without a conjunction." }
+    ]
+  },
+  {
+    id: 18,
+    tag: "Common Errors",
+    title: "Common Errors & Advanced Tips",
+    subtitle: "Frequently confused words, subject-verb agreement & key corrections",
+    symbol: "✓",
+    sections: [
+      {
+        title: "Subject-Verb Agreement",
+        examples: [
+          { correct: "Everyone is here. Each student has a book.", note: "Indefinite pronouns (everyone, each, anyone) → singular verb" },
+          { correct: "Neither the teacher nor the students were happy.", note: "Neither/nor, either/or → verb agrees with the nearest subject" },
+          { correct: "The news is bad. Mathematics is my favourite subject.", note: "Some nouns look plural but are singular" },
+          { correct: "A number of students were absent. The number of students is rising.", note: "'a number of' → plural; 'the number of' → singular" }
+        ]
+      },
+      {
+        title: "Commonly Confused Words",
+        table: {
+          cols: ["Pair", "Difference", "Example"],
+          rows: [
+            ["affect / effect", "affect=verb, effect=noun", "Stress affects health. The effect was clear."],
+            ["lie / lay", "lie=to recline, lay=to place", "Lie down. Lay the book here."],
+            ["fewer / less", "fewer=countable, less=uncountable", "Fewer cars, less traffic."],
+            ["who / whom", "who=subject, whom=object", "Who called? Whom did you call?"],
+            ["that / which", "that=restrictive, which=non-restrictive", "The car that broke… / My car, which broke…"],
+            ["since / for", "since=point in time, for=duration", "since Monday / for three days"],
+          ]
+        }
+      },
+      {
+        title: "Advanced Sentence Corrections",
+        examples: [
+          { wrong: "Me and him went to school.", correct: "He and I went to school.", note: "Subjects need subject pronouns; put 'I' last" },
+          { wrong: "She is more smarter than him.", correct: "She is smarter than he is.", note: "Never use 'more' with -er comparatives; use subject after 'than'" },
+          { wrong: "I was very starving.", correct: "I was starving. / I was very hungry.", note: "Absolute adjectives (starving, exhausted) don't need 'very'" }
+        ]
+      }
+    ],
+    quiz: [
+      { q: "Choose the correct verb: 'Each of the students ___ a textbook.'", opts: ["have","has","are having","had been"], ans: 1, explain: "'Each' is singular, so it takes a singular verb 'has'." },
+      { q: "Which is correct?", opts: ["Less people came than expected.","Fewer people came than expected.","Less peoples came.","Fewer amount of people came."], ans: 1, explain: "'Fewer' is used with countable nouns like 'people'." }
+    ]
+  }
+];
+
+// State
+let completed = new Set();
+let currentLesson = 0;
+
+function buildNav() {
+  const nav = document.getElementById('lesson-nav');
+  nav.innerHTML = lessons.map((l, i) => `
+    <button class="lesson-btn ${i===0?'active':''}" onclick="goTo(${i})" id="nav-${i}">
+      <span class="num">${i+1}</span>
+      ${l.title}
+    </button>
+  `).join('');
+}
+
+function buildLessons() {
+  const area = document.getElementById('lesson-area');
+  area.innerHTML = lessons.map((l, li) => `
+    <div class="lesson-card ${li===0?'active':''}" id="lesson-${li}">
+      <div class="lesson-header" data-symbol="${l.symbol}">
+        <span class="lesson-tag">${l.tag}</span>
+        <div class="lesson-title">${l.title}</div>
+        <div class="lesson-subtitle">${l.subtitle}</div>
+      </div>
+      <div class="lesson-body">
+        ${l.sections.map(s => buildSection(s)).join('')}
+        ${buildQuiz(l.quiz, li)}
+        <div class="nav-btns">
+          <button class="btn btn-ghost" onclick="goTo(${li-1})" ${li===0?'style="visibility:hidden"':''}>← Previous</button>
+          <span class="lesson-count">Lesson ${li+1} of ${lessons.length}</span>
+          ${li < lessons.length-1
+            ? `<button class="btn btn-primary" onclick="markDone(${li})">Next Lesson →</button>`
+            : `<button class="btn btn-primary" onclick="markDone(${li})" style="background:var(--sage)">✓ Complete!</button>`
+          }
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function buildSection(s) {
+  let html = `<div class="section"><div class="section-title">${s.title}</div>`;
+  if (s.content) html += `<p>${s.content}</p>`;
+  if (s.formula) html += `<div class="formula">${s.formula}</div>`;
+  if (s.table) html += buildTable(s.table);
+  if (s.examples) html += buildExamples(s.examples);
+  if (s.chips) html += buildChips(s.chips);
+  if (s.two_col) html += buildTwoCol(s.two_col);
+  html += `</div>`;
+  return html;
+}
+
+function buildTable(t) {
+  return `<div class="rules-grid">
+    <div class="rule-row header">${t.cols.map(c=>`<div class="rule-cell">${c}</div>`).join('')}</div>
+    ${t.rows.map(r=>`<div class="rule-row">${r.map(c=>`<div class="rule-cell">${c}</div>`).join('')}</div>`).join('')}
+  </div>`;
+}
+
+function buildExamples(exs) {
+  return `<div class="examples">${exs.map(e => `
+    <div class="example">
+      ${e.wrong ? `<div class="wrong">✗ ${e.wrong}</div>` : ''}
+      <div class="correct">✓ ${e.correct}</div>
+      ${e.note ? `<div class="note">${e.note}</div>` : ''}
+    </div>
+  `).join('')}</div>`;
+}
+
+function buildChips(chips) {
+  return `<div class="chips">${chips.map(c=>`<span class="chip ${c.type||''}">${c.label}</span>`).join('')}</div>`;
+}
+
+function buildTwoCol(cols) {
+  return `<div class="two-col">${cols.map(c=>`
+    <div class="col-box">
+      <h4>${c.title}</h4>
+      <ul>${c.items.map(i=>`<li>${i}</li>`).join('')}</ul>
+    </div>
+  `).join('')}</div>`;
+}
+
+function buildQuiz(quiz, li) {
+  return `<div class="quiz-section">
+    <div class="quiz-title">🎯 Quick Check</div>
+    ${quiz.map((q, qi) => `
+      <div class="quiz-q" id="qq-${li}-${qi}">
+        <p>${qi+1}. ${q.q}</p>
+        <div class="quiz-options">
+          ${q.opts.map((o, oi) => `
+            <div class="quiz-opt" onclick="checkAns(${li},${qi},${oi},${q.ans},'${q.explain.replace(/'/g,"\\'")}')">
+              <span class="dot"></span>${o}
+            </div>
+          `).join('')}
+        </div>
+        <div class="quiz-feedback" id="qf-${li}-${qi}"></div>
+      </div>
+    `).join('')}
+  </div>`;
+}
+
+function checkAns(li, qi, chosen, correct, explain) {
+  const opts = document.querySelectorAll(`#qq-${li}-${qi} .quiz-opt`);
+  opts.forEach(o => o.style.pointerEvents = 'none');
+  opts[chosen].classList.add(chosen === correct ? 'correct' : 'wrong');
+  if (chosen !== correct) opts[correct].classList.add('correct');
+  const fb = document.getElementById(`qf-${li}-${qi}`);
+  fb.textContent = (chosen === correct ? '✓ Correct! ' : '✗ Not quite. ') + explain;
+  fb.className = `quiz-feedback show ${chosen === correct ? 'ok' : 'no'}`;
+}
+
+function goTo(i) {
+  if (i < 0 || i >= lessons.length) return;
+  document.querySelectorAll('.lesson-card').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.lesson-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(`lesson-${i}`).classList.add('active');
+  document.getElementById(`nav-${i}`).classList.add('active');
+  currentLesson = i;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function markDone(li) {
+  completed.add(li);
+  document.getElementById(`nav-${li}`).classList.add('done');
+  updateProgress();
+  if (li < lessons.length - 1) goTo(li + 1);
+}
+
+function updateProgress() {
+  const pct = Math.round(completed.size / lessons.length * 100);
+  document.getElementById('prog-fill').style.width = pct + '%';
+  document.getElementById('prog-label').textContent = `${completed.size} / ${lessons.length} done`;
+}
+
+buildNav();
+buildLessons();
+</script>
+</body>
+</html>
