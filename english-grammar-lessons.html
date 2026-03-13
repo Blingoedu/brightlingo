@@ -3,38 +3,487 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Essential English Grammar</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>BlingoEdu — Tutoring Center</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --ink: #1a1208;
-    --cream: #faf6ee;
-    --warm: #f0e8d5;
-    --gold: #c9973a;
-    --rust: #b84c2a;
-    --sage: #4a6741;
-    --slate: #3d4f5c;
-    --muted: #8a7d6b;
-    --border: #d9cebc;
+    --blue: #185FA5;
+    --blue-dark: #0C447C;
+    --blue-light: #E6F1FB;
+    --blue-mid: #378ADD;
+    --white: #ffffff;
+    --gray: #f5f7fa;
+    --text: #1a2233;
+    --muted: #64748b;
+    --border: rgba(24,95,165,0.12);
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--white); }
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--cream);
-    color: var(--ink);
-    min-height: 100vh;
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+    backdrop-filter: blur(10px);
   }
+  .logo { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--blue); font-weight: 600; }
+  .logo span { color: var(--blue-mid); }
+  .nav-links { display: flex; gap: 4px; }
+  .nav-links button {
+    background: none; border: none; color: var(--muted);
+    padding: 8px 16px; border-radius: 8px; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 400;
+    transition: all 0.2s;
+  }
+  .nav-links button:hover { background: var(--blue-light); color: var(--blue); }
+  .nav-links button.active { background: var(--blue); color: var(--white); font-weight: 500; }
 
-  /* HEADER */
-  header {
-    background: var(--ink);
-    color: var(--cream);
-    padding: 0;
-    position: sticky;
-    top: 0;
-    z-index: 100;
+  /* PAGES */
+  .page { display: none; animation: fadeIn 0.3s ease; }
+  .page.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 60%, var(--blue-mid) 100%);
+    color: var(--white);
+    padding: 5rem 2rem 4rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero-tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: rgba(255,255,255,0.9);
+    font-size: 12px; font-weight: 500; letter-spacing: 0.08em;
+    padding: 5px 14px; border-radius: 20px; margin-bottom: 1.25rem;
+    text-transform: uppercase;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 600; line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+  .hero p { font-size: 16px; opacity: 0.85; max-width: 500px; margin: 0 auto 2rem; line-height: 1.7; font-weight: 300; }
+  .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--white); color: var(--blue);
+    border: none; padding: 12px 28px; border-radius: 10px;
+    font-size: 15px; font-weight: 500; cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s;
+  }
+  .btn-primary:hover { background: var(--blue-light); transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent; color: var(--white);
+    border: 1.5px solid rgba(255,255,255,0.4);
+    padding: 12px 28px; border-radius: 10px;
+    font-size: 15px; font-weight: 400; cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s;
+  }
+  .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.7); }
+
+  /* SECTIONS */
+  .section { padding: 4rem 2rem; max-width: 920px; margin: 0 auto; }
+  .section-label {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--blue-mid);
+    margin-bottom: 0.5rem;
+  }
+  .section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; font-weight: 500;
+    margin-bottom: 0.75rem; color: var(--text);
+  }
+  .section-sub { color: var(--muted); font-size: 15px; line-height: 1.7; margin-bottom: 2.5rem; max-width: 560px; }
+
+  /* FEATURE CARDS */
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+  .card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 14px; padding: 1.5rem;
+    transition: all 0.2s;
+  }
+  .card:hover { border-color: var(--blue-mid); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(24,95,165,0.1); }
+  .card-icon {
+    width: 44px; height: 44px;
+    background: var(--blue-light); border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 14px; font-size: 20px;
+  }
+  .card h3 { font-size: 15px; font-weight: 500; margin-bottom: 6px; }
+  .card p { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+  /* STATS */
+  .stats-strip { background: var(--blue); padding: 3rem 2rem; }
+  .stats-inner { max-width: 920px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 2rem; text-align: center; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 600; color: var(--white); }
+  .stat-label { font-size: 13px; color: rgba(255,255,255,0.7); margin-top: 4px; font-weight: 300; }
+
+  /* COURSES */
+  .course-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
+  .course-card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 14px; padding: 1.5rem;
+    display: flex; flex-direction: column; gap: 10px;
+    transition: all 0.2s;
+  }
+  .course-card:hover { border-color: var(--blue-mid); box-shadow: 0 8px 24px rgba(24,95,165,0.1); }
+  .course-badge {
+    display: inline-block;
+    background: var(--blue-light); color: var(--blue);
+    font-size: 11px; font-weight: 500; letter-spacing: 0.05em;
+    padding: 3px 10px; border-radius: 6px; text-transform: uppercase;
+    align-self: flex-start;
+  }
+  .course-card h3 { font-size: 16px; font-weight: 500; }
+  .course-card p { font-size: 13px; color: var(--muted); line-height: 1.65; flex: 1; }
+  .enroll-btn {
+    background: var(--blue-light); color: var(--blue);
+    border: none; padding: 9px 18px; border-radius: 8px;
+    font-size: 13px; font-weight: 500; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; align-self: flex-start;
+    transition: all 0.2s;
+  }
+  .enroll-btn:hover { background: var(--blue); color: var(--white); }
+
+  /* ABOUT */
+  .about-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; margin-bottom: 3rem; }
+  @media(max-width: 640px) { .about-intro { grid-template-columns: 1fr; } }
+  .about-visual {
+    background: linear-gradient(135deg, var(--blue-dark), var(--blue-mid));
+    border-radius: 16px; height: 280px;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 8px; color: var(--white); text-align: center; padding: 2rem;
+  }
+  .about-visual .av-icon { font-size: 48px; margin-bottom: 8px; }
+  .about-visual h3 { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 500; }
+  .about-visual p { font-size: 13px; opacity: 0.75; font-weight: 300; }
+  .values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; }
+  .value-card {
+    background: var(--gray); border-radius: 12px; padding: 1.25rem;
+    border-left: 3px solid var(--blue);
+  }
+  .value-card h4 { font-size: 14px; font-weight: 500; margin-bottom: 6px; color: var(--blue-dark); }
+  .value-card p { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+  /* TEAM */
+  .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-top: 1rem; }
+  .team-card { text-align: center; padding: 1.5rem 1rem; border: 1px solid var(--border); border-radius: 14px; }
+  .avatar {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: var(--blue); color: var(--white);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 600;
+    margin: 0 auto 12px;
+  }
+  .team-card h4 { font-size: 14px; font-weight: 500; }
+  .team-card p { font-size: 12px; color: var(--muted); margin-top: 3px; }
+
+  /* CONTACT */
+  .contact-layout { display: grid; grid-template-columns: 1fr 1.5fr; gap: 3rem; }
+  @media(max-width: 640px) { .contact-layout { grid-template-columns: 1fr; } }
+  .contact-info h3 { font-family: 'Playfair Display', serif; font-size: 20px; margin-bottom: 1rem; }
+  .contact-info p { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; }
+  .info-item { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 14px; }
+  .info-icon { width: 36px; height: 36px; background: var(--blue-light); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .info-item div h5 { font-size: 12px; color: var(--muted); font-weight: 400; margin-bottom: 2px; }
+  .info-item div p { font-size: 14px; font-weight: 500; margin: 0; color: var(--text); }
+  .contact-form { background: var(--gray); border-radius: 16px; padding: 2rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media(max-width: 480px) { .form-row { grid-template-columns: 1fr; } }
+  .form-group { margin-bottom: 14px; }
+  .form-group label { display: block; font-size: 12px; font-weight: 500; color: var(--muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .form-group input, .form-group textarea, .form-group select {
+    width: 100%; padding: 10px 14px;
+    border: 1px solid var(--border); border-radius: 8px;
+    font-size: 14px; font-family: 'DM Sans', sans-serif;
+    background: var(--white); color: var(--text);
+    outline: none; transition: border 0.2s;
+  }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--blue); }
+  .form-group textarea { height: 110px; resize: vertical; }
+  .submit-btn {
+    width: 100%; background: var(--blue); color: var(--white);
+    border: none; padding: 12px; border-radius: 10px;
+    font-size: 15px; font-weight: 500; cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s;
+  }
+  .submit-btn:hover { background: var(--blue-dark); }
+
+  /* DIVIDER */
+  .divider { height: 1px; background: var(--border); max-width: 920px; margin: 0 auto; }
+
+  /* FOOTER */
+  footer {
+    background: var(--blue-dark); color: rgba(255,255,255,0.6);
+    text-align: center; padding: 2rem;
+    font-size: 13px; font-weight: 300;
+  }
+  footer span { color: rgba(255,255,255,0.9); font-weight: 500; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Blingo<span>Edu</span></div>
+  <div class="nav-links">
+    <button class="active" onclick="showPage('home', this)">Home</button>
+    <button onclick="showPage('about', this)">About Us</button>
+    <button onclick="showPage('courses', this)">Courses</button>
+    <button onclick="showPage('lessons', this)">Lessons</button>
+    <button onclick="showPage('contact', this)">Contact</button>
+  </div>
+</nav>
+
+<!-- HOME PAGE -->
+<div id="home" class="page active">
+  <div class="hero">
+    <div class="hero-tag">Tutoring Center</div>
+    <h1>Unlock Every Student's<br>True Potential</h1>
+    <p>BlingoEdu provides personalized tutoring for students at every level. Expert tutors, proven results, flexible schedules.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="showPage('courses', document.querySelectorAll('.nav-links button')[2])">Explore Courses</button>
+      <button class="btn-outline" onclick="showPage('contact', document.querySelectorAll('.nav-links button')[4])">Get in Touch</button>
+    </div>
+  </div>
+
+  <div class="stats-strip">
+    <div class="stats-inner">
+      <div><div class="stat-num">500+</div><div class="stat-label">Students helped</div></div>
+      <div><div class="stat-num">20+</div><div class="stat-label">Expert tutors</div></div>
+      <div><div class="stat-num">10+</div><div class="stat-label">Subjects offered</div></div>
+      <div><div class="stat-num">95%</div><div class="stat-label">Satisfaction rate</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Why BlingoEdu</div>
+    <h2>Learning that actually works</h2>
+    <p class="section-sub">We combine experienced tutors with personalized study plans to help every student grow with confidence.</p>
+    <div class="cards">
+      <div class="card"><div class="card-icon">🎓</div><h3>Expert tutors</h3><p>Qualified and experienced teachers dedicated to each student's success.</p></div>
+      <div class="card"><div class="card-icon">📋</div><h3>Personalized plans</h3><p>Customized study plans tailored to individual strengths and weaknesses.</p></div>
+      <div class="card"><div class="card-icon">📈</div><h3>Proven results</h3><p>Consistent track record of improving grades and building confidence.</p></div>
+      <div class="card"><div class="card-icon">🕐</div><h3>Flexible schedule</h3><p>Morning, afternoon, and evening sessions available to fit any timetable.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT PAGE -->
+<div id="about" class="page">
+  <div class="hero" style="padding: 4rem 2rem 3rem;">
+    <div class="hero-tag">Our Story</div>
+    <h1>About BlingoEdu</h1>
+    <p>Dedicated to helping every student succeed through expert guidance and genuine care.</p>
+  </div>
+
+  <div class="section">
+    <div class="about-intro">
+      <div class="about-visual">
+        <div class="av-icon">📚</div>
+        <h3>Education First</h3>
+        <p>We believe every student deserves the support to reach their full academic potential.</p>
+      </div>
+      <div>
+        <div class="section-label">Our Mission</div>
+        <h2>Making quality education accessible</h2>
+        <p style="color: var(--muted); font-size: 15px; line-height: 1.8; margin-bottom: 1rem;">BlingoEdu was founded with one mission: to make quality tutoring accessible to every student. Our team works closely with students to identify their strengths and areas for growth, creating a supportive and encouraging learning environment.</p>
+        <p style="color: var(--muted); font-size: 15px; line-height: 1.8;">Whether a student needs help catching up or wants to get ahead, BlingoEdu provides the tools, guidance, and encouragement to succeed.</p>
+      </div>
+    </div>
+
+    <div class="section-label">Our Values</div>
+    <h2 style="margin-bottom: 1.5rem;">What we stand for</h2>
+    <div class="values-grid">
+      <div class="value-card"><h4>Excellence</h4><p>We hold ourselves to the highest standard in teaching quality and student outcomes.</p></div>
+      <div class="value-card"><h4>Inclusion</h4><p>Every student is welcomed and supported regardless of their starting point.</p></div>
+      <div class="value-card"><h4>Dedication</h4><p>Our tutors are passionate, committed, and genuinely invested in each student's journey.</p></div>
+      <div class="value-card"><h4>Growth</h4><p>We celebrate every step of progress, big or small, and foster a love of learning.</p></div>
+    </div>
+
+    <div style="margin-top: 3rem;">
+      <div class="section-label">Meet the Team</div>
+      <h2>Our tutors</h2>
+      <div class="team-grid">
+        <div class="team-card"><div class="avatar" style="background:#185FA5">AM</div><h4>Ahmed Mohamed</h4><p>Mathematics & Physics</p></div>
+        <div class="team-card"><div class="avatar" style="background:#378ADD">SL</div><h4>Sara Lee</h4><p>English & Literature</p></div>
+        <div class="team-card"><div class="avatar" style="background:#0C447C">RK</div><h4>Rania Khan</h4><p>Biology & Chemistry</p></div>
+        <div class="team-card"><div class="avatar" style="background:#185FA5">JO</div><h4>James Osei</h4><p>Exam Preparation</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- COURSES PAGE -->
+<div id="courses" class="page">
+  <div class="hero" style="padding: 4rem 2rem 3rem;">
+    <div class="hero-tag">Programs</div>
+    <h1>Our Courses</h1>
+    <p>From core subjects to exam preparation — expert tutoring for every academic need.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Core Subjects</div>
+    <h2>What we teach</h2>
+    <p class="section-sub">All courses are available for primary and secondary school students with sessions tailored to each level.</p>
+    <div class="course-grid">
+      <div class="course-card">
+        <div class="course-badge">Core Subject</div>
+        <h3>Mathematics</h3>
+        <p>Arithmetic, algebra, geometry, calculus, and full exam preparation for all levels from primary through secondary.</p>
+        <button class="enroll-btn" onclick="showPage('contact', document.querySelectorAll('.nav-links button')[4])">Enroll now</button>
+      </div>
+      <div class="course-card">
+        <div class="course-badge">Core Subject</div>
+        <h3>English Language</h3>
+        <p>Reading comprehension, essay writing, grammar, vocabulary, and literature analysis for all year groups.</p>
+        <button class="enroll-btn" onclick="showPage('contact', document.querySelectorAll('.nav-links button')[4])">Enroll now</button>
+      </div>
+      <div class="course-card">
+        <div class="course-badge">Science</div>
+        <h3>Biology</h3>
+        <p>Life sciences, human biology, ecosystems, genetics, and exam techniques for secondary students.</p>
+        <button class="enroll-btn" onclick="showPage('contact', document.querySelectorAll('.nav-links button')[4])">Enroll now</button>
+      </div>
+      <div class="course-card">
+        <div class="course-badge">Science</div>
+        <h3>Chemistry</h3>
+        <p>Periodic table, chemical reactions, equations, organic chemistry, and structured lab concepts.</p>
+        <button class="enroll-btn" onclick="showPage('contact', document.querySelectorAll('.nav-links button')[4])">Enroll now</button>
+      </div>
+      <div class="course-card">
+        <div class="course-badge">Science</div>
+        <h3>Physics</h3>
+        <p>Forces, energy, electricity, waves, and problem-solving strategies for secondary and exam-level students.</p>
+        <button class="enroll-btn" onclick="showPage('contact', document.querySelectorAll('.nav-links button')[4])">Enroll now</button>
+      </div>
+      <div class="course-card" style="border: 2px solid var(--blue-mid);">
+        <div class="course-badge" style="background: var(--blue); color: var(--white);">Popular</div>
+        <h3>Exam Preparation</h3>
+        <p>Intensive revision sessions, mock exams, and proven techniques for end-of-year and national assessments.</p>
+        <button class="enroll-btn" onclick="showPage('contact', document.querySelectorAll('.nav-links button')[4])">Enroll now</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LESSONS PAGE -->
+<div id="lessons" class="page">
+  <div class="hero" style="padding: 4rem 2rem 3rem;">
+    <div class="hero-tag">Online Lessons</div>
+    <h1>Grammar Lessons</h1>
+    <p>Self-paced English grammar lessons you can study anytime, anywhere online.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-label">English Grammar</div>
+    <h2>Available lessons</h2>
+    <p class="section-sub">Click any lesson below to start learning. Each lesson opens in a new page with full exercises and explanations.</p>
+    <div class="course-grid">
+      <div class="course-card" style="border: 2px solid var(--blue-mid);">
+        <div class="course-badge" style="background: var(--blue); color: var(--white);">Available now</div>
+        <h3>📖 English Grammar</h3>
+        <p>A complete English grammar lesson covering key rules, structures, and exercises to strengthen your language skills.</p>
+        <a href="english-grammar-lesson.html" style="text-decoration:none;">
+          <button class="enroll-btn" style="background: var(--blue); color: var(--white);">Start Lesson →</button>
+        </a>
+      </div>
+      <div class="course-card" style="opacity: 0.6;">
+        <div class="course-badge">Coming soon</div>
+        <h3>✏️ Writing Skills</h3>
+        <p>Essay writing, paragraph structure, and composition techniques for all levels.</p>
+        <button class="enroll-btn" disabled style="cursor:not-allowed; opacity:0.5;">Coming soon</button>
+      </div>
+      <div class="course-card" style="opacity: 0.6;">
+        <div class="course-badge">Coming soon</div>
+        <h3>📝 Vocabulary Builder</h3>
+        <p>Expand your vocabulary with themed word lists, definitions, and practice exercises.</p>
+        <button class="enroll-btn" disabled style="cursor:not-allowed; opacity:0.5;">Coming soon</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT PAGE -->
+<div id="contact" class="page">
+  <div class="hero" style="padding: 4rem 2rem 3rem;">
+    <div class="hero-tag">Get in Touch</div>
+    <h1>Contact Us</h1>
+    <p>Have a question or ready to enroll? We'd love to hear from you.</p>
+  </div>
+
+  <div class="section">
+    <div class="contact-layout">
+      <div class="contact-info">
+        <h3>We're here to help</h3>
+        <p>Whether you have questions about our courses, want to discuss your child's needs, or are ready to get started — reach out anytime.</p>
+        <div class="info-item">
+          <div class="info-icon">📧</div>
+          <div><h5>Email</h5><p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4b232e2727240b292722252c242e2f3e65282426">[email&#160;protected]</a></p></div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">📞</div>
+          <div><h5>Phone</h5><p>+1 (555) 123-4567</p></div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">📍</div>
+          <div><h5>Location</h5><p>BlingoEdu Tutoring Center</p></div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">🕐</div>
+          <div><h5>Hours</h5><p>Mon–Sat, 8am – 8pm</p></div>
+        </div>
+      </div>
+
+      <div class="contact-form">
+        <div class="form-row">
+          <div class="form-group"><label>First name</label><input type="text" placeholder="Your first name"></div>
+          <div class="form-group"><label>Last name</label><input type="text" placeholder="Your last name"></div>
+        </div>
+        <div class="form-group"><label>Email address</label><input type="email" placeholder="your@email.com"></div>
+        <div class="form-group"><label>Subject of interest</label>
+          <select>
+            <option value="">Select a subject...</option>
+            <option>Mathematics</option>
+            <option>English Language</option>
+            <option>Biology</option>
+            <option>Chemistry</option>
+            <option>Physics</option>
+            <option>Exam Preparation</option>
+            <option>General Inquiry</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Message</label><textarea placeholder="Tell us how we can help your child..."></textarea></div>
+        <button class="submit-btn">Send Message</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  © 2026 <span>BlingoEdu</span>. All rights reserved. Empowering students to reach their full potential.
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  function showPage(id, btn) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-li    z-index: 100;
     border-bottom: 3px solid var(--gold);
   }
 
